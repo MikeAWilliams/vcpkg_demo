@@ -1,0 +1,25 @@
+// main.cpp
+#include <optional>
+#include <string>
+#include <catch2/catch_test_macros.hpp>
+
+
+
+unsigned int Factorial( unsigned int number ) {
+    return number <= 1 ? number : Factorial(number-1)*number;
+}
+
+TEST_CASE( "Factorials are computed", "[factorial]" ) {
+
+    REQUIRE( Factorial(1) == 1 );
+    REQUIRE( Factorial(2) == 2 );
+    REQUIRE( Factorial(3) == 6 );
+    REQUIRE( Factorial(10) == 3628800 );
+}
+
+TEST_CASE("cpp23 optional`"){
+    std::optional<std::string> hello {"hello "};
+    std::optional<std::string> world;
+    auto result = hello.value() + world.or_else([](){ return std::optional<std::string>{"world"};}).value();
+    REQUIRE("hello world" == result);
+}
